@@ -1,0 +1,10 @@
+table {
+	width: 700px;
+}
+table thead {
+	background: black;
+    color: white;
+}
+table .text-right {
+	text-align: right;
+}

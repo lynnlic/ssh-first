@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="10485760" />
+	<package name="student" namespace="/" extends="struts-default">
+		<!-- 申明拦截器 -->
+		<interceptors>
+			<interceptor name="intercept" class="interceptor.LoginInterceptor" />
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="intercept" />
+			</interceptor-stack>
+		</interceptors>
+		<action name="login" class="action.LoginAction">
+			<result name="success" type="redirect">
+				<param name="location">/getStuByCondition.action</param>
+			</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<action name="getStuByCondition" class="action.StudentAction">
+			<result name="success">/index.jsp</result>
+			<result name="login">/login.jsp</result>
+			<interceptor-ref name="myStack" />
+		</action>
+		<action name="fileUpload" class="action.FileUploadAction">
+			<result name="success" type="redirect">
+				<param name="location">/getStuByCondition.action</param>
+			</result>
+			<result name="input">/fileUpload.jsp</result>
+			<interceptor-ref name="defaultStack">
+				<!-- 限制上传文件最大值为4mb -->
+				<param name="fileUpload.maximumSize">4194304</param>
+				<!-- 当下面的两个配置文件同时存在时，要同时满足下面两个条件，才能上传 -->
+				<!-- 限制上传文件的扩展名 -->
+				<param name="fileUpload.allowedExtensions">.txt,.doc,.jpg</param>
+				<!-- 限制上传文件的类型 -->
+				<param name="fileUpload.allowTypes">text/plain,application/msword,image/jpeg</param>
+			</interceptor-ref>
+		</action>		
+		<action name="fileDownload" class="action.FileDownloadAction">
+			<result name="success">
+				
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="path">D:/downLoad</param>
+				<param name="bufferSize">4096</param>
+				<param name="location">/success.jsp</param>
+				<param name="path">D:/downLoad</param>
+			</result>			
+		</action>
+	</package>
+</struts>    

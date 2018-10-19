@@ -1,0 +1,4 @@
+.login {
+	width: 270px;//有宽度margin才能居中
+    margin: 20px auto;
+}
