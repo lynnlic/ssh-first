@@ -3,6 +3,11 @@ package service;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+
 import model.Student;
 
 public class FileUploadService {
@@ -22,17 +27,17 @@ public class FileUploadService {
 	}
 	
 	//Ð´ÈëÊý¾Ý
-	public void addStudent() {
+	public void addStudent() throws Exception {
 		StudentService studentService = new StudentService();		
-		List<Student> newStudent = studentService.getStudents();
+		List<Student> newStudent = studentService.creatStudent();
 		
 		for(int i = 0; i < info.length; i++) {
 			Student student = new Student();
-			student.setStuID(info[i][0]);
+			student.setStuId(info[i][0]);
 			student.setStuName(info[i][1]);
 			student.setStuAge(Integer.parseInt(info[i][2]));
 			newStudent.add(student);
 		}
-		studentService.setStudents(newStudent);
+//		studentService.setStudents(newStudent);
 	}
 }

@@ -24,3 +24,4 @@ function setFileName() {
 	console.log(fileName);
 	location.href = '/first/fileDownload.action?fileName='+fileName;
 }
+

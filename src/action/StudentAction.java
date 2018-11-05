@@ -9,13 +9,13 @@ import model.Student;
 import service.StudentService;
 
 public class StudentAction extends ActionSupport{
-	String type, condition, value;
+	String type, condition, value, classId;
 	String userName,password;
-	List<Student> students = new ArrayList<Student>();
+//	int flag = 0;//标志是进行那种操作 0：默认查询  1：新增 2： 删除
+	List<Student> students;
 	static StudentService service;
 	static {
 		service = new StudentService();
-		service.creatStudent();
 	}
 	
 	public List<Student> getStudents() {
@@ -24,6 +24,14 @@ public class StudentAction extends ActionSupport{
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+	public String getClassId() {
+		return classId;
+	}
+
+	public void setClassId(String classId) {
+		this.classId = classId;
 	}
 
 	public String getType() {
@@ -66,13 +74,23 @@ public class StudentAction extends ActionSupport{
 		this.password = password;
 	}
 
-	public String execute() {		
-		if(type != null) {
-			students = service.find(type, condition, value);
-		}
-		else {
-			students = service.getStudents();
-		}		
+	public String execute() {	
+//		if(flag == 0) {
+			if(("".equals(classId) || classId == null) && type == null) {
+				students = service.creatStudent();
+			} else if(("".equals(classId) || classId == null) && type != null) {//班级未选，搜索类型已选
+				students = service.getStuByAllCondition(classId, type, condition, value);
+			} else if(!"".equals(classId) && type == null) {
+				students = service.getStudentsByClass(classId);
+			} else if(!"".equals(classId) && type != null) {
+				students = service.getStuByAllCondition(classId, type, condition, value);
+			}
+//		} else if(flag == 1) {//新增
+			
+//		} else if(flag == 2) {//删除
+			
+//		}
+		
 		return "success";
 	}
 }

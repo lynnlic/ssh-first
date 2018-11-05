@@ -14,7 +14,7 @@
 		</interceptors>
 		<action name="login" class="action.LoginAction">
 			<result name="success" type="redirect">
-				<param name="location">/getStuByCondition.action</param>
+				<param name="location">/getClass.action</param>
 			</result>
 			<result name="error">/login.jsp</result>
 		</action>
@@ -22,6 +22,16 @@
 			<result name="success">/index.jsp</result>
 			<result name="login">/login.jsp</result>
 			<interceptor-ref name="myStack" />
+		</action>
+		<action name="getClass" class="action.ClassAction">
+			<result name="success">/class.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<action name="addStudent" class="action.AddAction">
+			<result name="success" type="redirect">
+				<param name="location">/getStuByCondition.action</param>
+			</result>
+			<result name="input">/AddStudent.jsp</result>
 		</action>
 		<action name="fileUpload" class="action.FileUploadAction">
 			<result name="success" type="redirect">

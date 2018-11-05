@@ -3,103 +3,49 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.StrToNum;
+import model.Class;
 import model.Student;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import utils.HibernateUtils;
+import utils.StrToNum;
+
 public class StudentService {
-	private List<Student> students = new ArrayList<Student>();
-	
 	//默认初始数据
 	public StudentService() {
 
 	}
 	
 	//创建学生
-	public void creatStudent() {
-		Student student = new Student();
-		student.setStuID("001");
-		student.setStuName("李四");
-		student.setStuAge(20);
-		students.add(student);
-		
-		student = new Student();
-		student.setStuID("002");
-		student.setStuName("张三");
-		student.setStuAge(21);
-		students.add(student);
-		
-		student = new Student();
-		student.setStuID("003");
-		student.setStuName("王五");
-		student.setStuAge(19);
-		students.add(student);
+	public List<Student> creatStudent() {
+		Session session = HibernateUtils.getSession();
+		Transaction t = (Transaction) session.beginTransaction();
+		String hql = "from Student";
+		Query query = session.createQuery(hql);
+		List<Student> list = query.list();
+		t.commit();
+		session.close();
+		return list;
 	}
 
-	public List<Student> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Student> students) {
-		this.students = students;
-	}
-	
 	/**
 	 * 通过名字查询
 	 * @param condition name
 	 * @param value 搜索值
 	 * @return
 	 */
-	public List<Student> findByName(String condition, String value) {
-		List<Student> result = new ArrayList<Student>();
-		
+	public String findByName(String condition, String value) {
 		if(condition != null) {
 			if(condition.equals("包含")) {
-				if(value != null && !value.trim().equals("")) {
-					for(Student s : students) {
-						if(s.getStuName().indexOf(value) > -1) {
-							result.add(s);
-						}
-					}
-				}
+				return "like '?' ";
+			} else if(condition.equals("等于")) {
+				return "= ?";
 			}
-			else if(condition.equals("等于")) {
-				if(value != null && value.trim().equals("")) {
-					for (Student s : students) {
-						if(value.equals(s.getStuName())) {
-							result.add(s);
-						}						
-					}
-				}
-			}
-			else {
-				result = students;
-			}
-//			switch(condition) {
-//			case "包含" : 
-//				if(value != null && value.trim().equals("")) {
-//					for(Student s : students) {
-//						if(s.getStuName().indexOf(value) > -1) {
-//							result.add(s);
-//						}
-//					}
-//				}
-//				break;
-//			case "等于": 
-//				if(value != null && value.trim().equals("")) {
-//					for (Student s : students) {
-//						if(value.trim().equals(s.getStuName())) {
-//							result.add(s);
-//						}						
-//					}
-//				}
-//				break;
-//			default: 
-//				result = students;
-//				break;
-//			}
-		}
-		
-		return result;
+		} 
+		return "";
 	}
 	
 	/**
@@ -108,82 +54,21 @@ public class StudentService {
 	 * @param value 输入的年龄
 	 * @return
 	 */
-	public List<Student> findByAge(String condition, String value) {
-		List<Student> result = new ArrayList<Student>();
-		int numValue = 0;
-		
-		if(StrToNum.isOk(value)) {
-			numValue = StrToNum.getNum();
-		}
+	public String findByAge(String condition, String value) {	
 		if(condition != null) {
 			if(condition.equals("大于")) {
-				for (Student s : students) {
-					if (s.getStuAge() > numValue) {
-						result.add(s);
-					}
-				}
-			}
-			else if(condition.equals("大于等于")) {
-				for (Student s : students) {
-					if (s.getStuAge() >= numValue) {
-						result.add(s);
-					}
-				}
-			}
-			else if(condition.equals("小于")) {
-				for (Student s : students) {
-					if (s.getStuAge() < numValue) {
-						result.add(s);
-					}
-				}
-			}
-			else if(condition.equals("小于等于")) {
-				for (Student s : students) {
-					if (s.getStuAge() <= numValue) {
-						result.add(s);
-					}
-				}
-			}
-			else {
-				result = students;
-			}
+				return "> ?"; 
+			} else if(condition.equals("大于等于")) {
+				return ">= ?";
+			} else if(condition.equals("等于")) {
+				return "= ?";
+			} else if(condition.equals("小于")) {
+				return "< ?";
+			} else if(condition.equals("小于等于")) {
+				return "<= ?";
+			}		
 		}
-		return result;
-//			switch (condition) {
-//			case "大于":
-//				for (Student s : students) {
-//					if (s.getStuAge() > numValue) {
-//						result.add(s);
-//					}
-//				}
-//				break;
-//			case "大于等于":
-//				for (Student s : students) {
-//					if (s.getStuAge() >= numValue) {
-//						result.add(s);
-//					}
-//				}
-//				break;
-//			case "小于":
-//				for (Student s : students) {
-//					if (s.getStuAge() < numValue) {
-//						result.add(s);
-//					}
-//				}
-//				break;
-//			case "小于等于":
-//				for (Student s : students) {
-//					if (s.getStuAge() <= numValue) {
-//						result.add(s);
-//					}
-//				}
-//				break;
-//			default:
-//				result = students;
-//				break;
-//			}
-//		}
-		
+		return "";
 	}
 	
 	/**
@@ -193,29 +78,51 @@ public class StudentService {
 	 * @param value 输入的查询值
 	 * @return
 	 */
-	public List<Student> find(String type, String condition, String value) {
+	public String find(String type, String condition, String value) {
+		String s = "and ";
+		if(type.equals("name")) {
+			s += "s.stuName " + findByName(condition, value);
+		} else if(type.equals("age")) {
+			s += "s.stuAge " + findByAge(condition, value);
+		}
+		return s;
+	}
+
+	/**
+	 * 通过班级id查询
+	 * @param classId 班级Id
+	 * @return
+	 */
+	public List<Student> getStudentsByClass(String classId) {
+		Session session = HibernateUtils.getSession();
 		List<Student> result = new ArrayList<Student>();
-		
-			if(type.equals("name")) {
-				result = findByName(condition, value);
-			}
-			else if(type.equals("age")) {
-				result = findByAge(condition, value);
-			}
-			else {
-				result = students;
-			}
-//			switch (type) {
-//			case "name":
-//				result = findByName(condition, value);
-//				break;
-//			case "age":
-//				result = findByAge(condition, value);
-//				break;
-//			default:
-//				result = students;
-//				break;
-//			}
+		Transaction t = session.beginTransaction();
+		String hql = "from Student where classId=:classId";
+		Query q = session.createQuery(hql);
+		q.setParameter("classId", classId);
+		result = q.list();
+		t.commit();
+		session.close();
+		return result;
+	}
+
+	public List<Student> getStuByAllCondition(String classId, String type, String condition, String value) {
+		Session session = HibernateUtils.getSession();
+		List<Student> result = new ArrayList<Student>();
+		Transaction t = session.beginTransaction();
+		String hql = "select s.stuId, s.stuName, s.stuAge, c.className from Student s, Class c "
+				+ "where s.ownClass.classId = c.classId and s.ownClass.classId = ? " + find(type, condition, value);
+		System.out.println("/////"+hql);
+		Query q = session.createQuery(hql);
+		q.setParameter(0, classId);
+		if(type.equals("age")) {
+			q.setParameter(1, Integer.parseInt(value));
+		} else {
+			q.setParameter(1, "'" + value + "'");
+		}
+		result = q.list();
+		t.commit();
+		session.close();
 		return result;
 	}
 }

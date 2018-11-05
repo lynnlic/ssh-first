@@ -5,13 +5,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%
 List<Student> students = (List<Student>) request.getAttribute("students");
+//Class classes =(Class) request.getAttribute("classes");
  %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>学生信息</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -27,6 +28,7 @@ List<Student> students = (List<Student>) request.getAttribute("students");
     	<div>
     		<form action="getStuByCondition.action" method="post" name="searchForm">
     			属性&nbsp;&nbsp;
+    			班级  <input type="text" name="classId"/>
     			<select name="type" onChange="getCondition()">
     				<option value=""></option>
     				<option value="name">姓名</option>
@@ -38,7 +40,7 @@ List<Student> students = (List<Student>) request.getAttribute("students");
     			<input type="text" name="value" />
     			<input value="提交" type="submit"/>
     		</form>
-    		
+    			<a href="javascript:window.location='AddStudent.jsp'">新增</a>
     			<a href="javascript:window.location='fileUpload.jsp'">文件上传</a>
     			<a href="javascript:void(0)" onclick="setFileName()" >文件下载</a>
     		    		
@@ -47,9 +49,11 @@ List<Student> students = (List<Student>) request.getAttribute("students");
     		<table border="1">
     			<thead>
     				<tr>
+    					<td>班级</td>
     					<td>学号</td>
     					<td>姓名</td>
     					<td class="text-right">年龄</td>
+    					<td>操作</td>
     				</tr>
     			</thead>
     			<tbody>
@@ -57,9 +61,11 @@ List<Student> students = (List<Student>) request.getAttribute("students");
 						for (Student student : students) {
 					%>
 					<tr>
-						<td><%=student.getStuID()%></td>
+						<td><%=student.getOwnClass().getClassName() %></td>
+						<td><%=student.getStuId()%></td>
 						<td><%=student.getStuName()%></td>
 						<td class="text-right"><%=student.getStuAge()%></td>
+						<td><a>编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
 					</tr>
 					<%
 						}
@@ -67,7 +73,7 @@ List<Student> students = (List<Student>) request.getAttribute("students");
 				</tbody>
     			<tfoot>
     				<tr>
-    					<td align="center" colspan="3">共<%=students.size() %>人</td>
+    					<td align="center" colspan="4">共<%=students.size() %>人</td>
     				</tr>
     			</tfoot>
     		</table>

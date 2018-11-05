@@ -47,7 +47,7 @@ public class FileDownloadAction extends ActionSupport{
 	public String execute() throws Exception {
 		System.out.println(fileName+"----");//struts自动调用set方法
 		StudentService studentService = new StudentService();		
-		List<Student> students = studentService.getStudents();	
+		List<Student> students = studentService.creatStudent();	
 		path = ServletActionContext.getServletContext().getRealPath(path);
 		File file = new File(path, fileName + ".txt");
 		if(!file.exists()) {
@@ -59,7 +59,7 @@ public class FileDownloadAction extends ActionSupport{
 		writer.write("学号\t姓名\t年龄\n");
 		for(int i = 0; i < students.size(); i++) {
 			Student temp = students.get(i);
-			writer.write(temp.getStuID() + "\t" + temp.getStuName() + "\t" + temp.getStuAge() + "\n");
+			writer.write(temp.getStuId() + "\t" + temp.getStuName() + "\t" + temp.getStuAge() + "\n");
 		}
 		writer.close();		
 		return SUCCESS;
