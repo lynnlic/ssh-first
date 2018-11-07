@@ -33,6 +33,17 @@
 			</result>
 			<result name="input">/AddStudent.jsp</result>
 		</action>
+		<action name="deleteStu" class="action.DeleteStudentAction">
+			<result name="success" type="redirect">
+				<param name="location">/getStuByCondition.action</param>
+			</result>
+		</action>
+		<action name="editStu" class="action.EditStuAction">
+			<result name="success" type="redirect">
+				<param name="location">/getStuByCondition.action</param>
+			</result>
+			<result name="input">/editStudent.jsp</result>
+		</action>
 		<action name="fileUpload" class="action.FileUploadAction">
 			<result name="success" type="redirect">
 				<param name="location">/getStuByCondition.action</param>

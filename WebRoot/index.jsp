@@ -59,13 +59,18 @@ List<Student> students = (List<Student>) request.getAttribute("students");
     			<tbody>
     				<%
 						for (Student student : students) {
+							String className = student.getOwnClass().getClassName();
+							String stuId = student.getStuId();
+							String stuName = student.getStuName();
+							Integer stuAge = student.getStuAge();
 					%>
 					<tr>
-						<td><%=student.getOwnClass().getClassName() %></td>
-						<td><%=student.getStuId()%></td>
-						<td><%=student.getStuName()%></td>
-						<td class="text-right"><%=student.getStuAge()%></td>
-						<td><a>编辑</a>&nbsp;&nbsp;<a href="#">删除</a></td>
+						<td><%=className %></td>
+						<td><%=stuId %></td>
+						<td><%=stuName %></td>
+						<td class="text-right"><%=stuAge %></td>
+						<td><a href="editStu.jsp?class=<%=className %>&stuId=<%=stuId %>&name=<%=stuName %>&stuAge=<%=stuAge %>">编辑</a>&nbsp;&nbsp;<a href="javascript:window.location='/first/deleteStu.action?stuId=<%=student.getStuId() %>'">删除</a></td>
+						<%-- <td><a href="javascript:session.setAttribute('student',<%=(Object)student %>)">删除</a></td> --%>
 					</tr>
 					<%
 						}
@@ -73,10 +78,13 @@ List<Student> students = (List<Student>) request.getAttribute("students");
 				</tbody>
     			<tfoot>
     				<tr>
-    					<td align="center" colspan="4">共<%=students.size() %>人</td>
+    					<td align="center" colspan="5">共<%=students.size() %>人</td>
     				</tr>
     			</tfoot>
     		</table>
+    	</div>
+    	<div>
+    		<input type="button" value="返回上一页面" onclick="window.location='/first/getClass.action'"/>
     	</div>
     </center>
   </body>

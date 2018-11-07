@@ -25,3 +25,8 @@ function setFileName() {
 	location.href = '/first/fileDownload.action?fileName='+fileName;
 }
 
+function setEditStu(student) {
+	session.setAttribute("student", student);
+	alert(student);
+	console.log("1111");
+}

@@ -112,7 +112,6 @@ public class StudentService {
 		Transaction t = session.beginTransaction();
 		String hql = "select s.stuId, s.stuName, s.stuAge, c.className from Student s, Class c "
 				+ "where s.ownClass.classId = c.classId and s.ownClass.classId = ? " + find(type, condition, value);
-		System.out.println("/////"+hql);
 		Query q = session.createQuery(hql);
 		q.setParameter(0, classId);
 		if(type.equals("age")) {
@@ -124,5 +123,28 @@ public class StudentService {
 		t.commit();
 		session.close();
 		return result;
+	}
+	
+	//删除学生
+	public void deleteStu(String stuId) {
+		Session session = HibernateUtils.getSession();
+		Transaction t = session.beginTransaction();
+		Student delStudetn = (Student)session.load(Student.class, stuId);
+		session.delete(delStudetn);
+		t.commit();
+		session.close();
+	}
+	
+	//编辑学生信息
+	public void editStu(Student student) {
+		Session session = HibernateUtils.getSession();
+		Transaction t = session.beginTransaction();
+		Student editStudent = (Student)session.load(Student.class, student.getStuId());
+		System.out.println(editStudent);
+		editStudent.setStuName(student.getStuName());
+		editStudent.setStuAge(student.getStuAge());
+		session.update(editStudent);		
+		t.commit();
+		session.close();
 	}
 }
