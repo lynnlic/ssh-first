@@ -6,8 +6,8 @@
 -->
 <hibernate-mapping>
     <class name="model.Class" table="class" catalog="student">
-        <id name="classId" type="java.lang.String">
-            <column name="classId" length="9" />
+        <id name="classCode" type="java.lang.String">
+            <column name="classCode" length="9" />
             <generator class="native" />
         </id>
         <property name="className" type="java.lang.String">
@@ -17,7 +17,7 @@
             <column name="number" />
         </property>
         <set name="students">
-        	<key column="classId" />
+        	<key column="classCode" />
         	<one-to-many class="model.Student" />
         </set>
     </class>

@@ -7,12 +7,10 @@ package model;
 public class Student implements java.io.Serializable {
 
 	// Fields
-
 	private String stuId;
 	private String stuName;
 	private Integer stuAge;
 	private Class ownClass;
-
 	// Constructors
 
 	/** default constructor */
@@ -58,4 +56,20 @@ public class Student implements java.io.Serializable {
 	public void setOwnClass(Class ownClass) {
 		this.ownClass = ownClass;
 	}
+
+	public Student(String stuId, String stuName, Integer stuAge, Class ownClass) {
+		super();
+		this.stuId = stuId;
+		this.stuName = stuName;
+		this.stuAge = stuAge;
+		this.ownClass = ownClass;
+	}
+
+	public Student(String stuName, Class ownClass) {
+		super();
+		this.stuName = stuName;
+		this.ownClass = ownClass;
+	}
+	
+	
 }

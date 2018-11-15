@@ -11,7 +11,7 @@ public class Class implements java.io.Serializable {
 
 	// Fields
 
-	private String classId;
+	private String classCode;
 	private String className;
 	private Integer number;
 	private Set<Student> students = new HashSet<Student>();
@@ -30,16 +30,25 @@ public class Class implements java.io.Serializable {
 
 	// Property accessors
 
-	public String getClassId() {
-		return this.classId;
-	}
+//	public String getClassId() {
+//		return this.classId;
+//	}
+//
+//	public void setClassId(String classId) {
+//		this.classId = classId;
+//	}
 
-	public void setClassId(String classId) {
-		this.classId = classId;
-	}
-
+	
 	public String getClassName() {
 		return this.className;
+	}
+
+	public String getClassCode() {
+		return classCode;
+	}
+
+	public void setClassCode(String classCode) {
+		this.classCode = classCode;
 	}
 
 	public void setClassName(String className) {

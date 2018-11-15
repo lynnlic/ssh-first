@@ -36,12 +36,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			<tbody>
     				<%
 						for (Class c : classes) {
-						String id = c.getClassId();
+						String id = c.getClassCode();
 					%>
 					<tr>
-						<td><%=c.getClassId() %></td>
+						<td><%=c.getClassCode() %></td>
 						<td><%=c.getClassName()+"("+c.getNumber()+"人)"%></td>
-						<td><a>编辑</a>&nbsp;&nbsp;<a href="./getStuByCondition.action?classId=<%=id %>">查看</a>&nbsp;&nbsp;<a>删除</a></td>
+						<td><a>编辑</a>&nbsp;&nbsp;<a href="./getStuByCondition.action?classCode=<%=id %>">查看</a>&nbsp;&nbsp;<a>删除</a></td>
 					</tr>
 					<%
 						}
@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tbody>
     			<tfoot>
     				<tr>
-    					<td align="center" colspan="3">共<%=classes.size()%>人</td>
+    					<td align="center" colspan="3">共<%=classes.size()%>个班级</td>
     				</tr>
     			</tfoot>
     		</table>

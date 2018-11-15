@@ -11,7 +11,6 @@ import service.StudentService;
 public class StudentAction extends ActionSupport{
 	String type, condition, value, classId;
 	String userName,password;
-//	int flag = 0;//标志是进行那种操作 0：默认查询  1：新增 2： 删除
 	List<Student> students;
 	static StudentService service;
 	static {
@@ -75,22 +74,18 @@ public class StudentAction extends ActionSupport{
 	}
 
 	public String execute() {	
-//		if(flag == 0) {
-			if(("".equals(classId) || classId == null) && type == null) {
-				students = service.creatStudent();
-			} else if(("".equals(classId) || classId == null) && type != null) {//班级未选，搜索类型已选
-				students = service.getStuByAllCondition(classId, type, condition, value);
-			} else if(!"".equals(classId) && type == null) {
-				students = service.getStudentsByClass(classId);
-			} else if(!"".equals(classId) && type != null) {
-				students = service.getStuByAllCondition(classId, type, condition, value);
-			}
-//		} else if(flag == 1) {//新增
-			
-//		} else if(flag == 2) {//删除
-			
-//		}
-		
+		if (("".equals(classId) || classId == null) && type == null) {
+			students = service.creatStudent();
+		} else if (("".equals(classId) || classId == null) && type != null) {// 班级未选，搜索类型已选
+			students = service.getStuByAllCondition(classId, type, condition,
+					value);
+		} else if (!"".equals(classId) && (type == null || "".equals(type))) {
+			students = service.getStudentsByClass(classId);
+		} else if (!"".equals(classId) && type != null) {
+			students = service.getStuByAllCondition(classId, type, condition,
+					value);
+		}
+
 		return "success";
 	}
 }

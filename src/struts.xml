@@ -16,7 +16,7 @@
 			<result name="success" type="redirect">
 				<param name="location">/getClass.action</param>
 			</result>
-			<result name="error">/login.jsp</result>
+			<result name="input">/login.jsp</result>
 		</action>
 		<action name="getStuByCondition" class="action.StudentAction">
 			<result name="success">/index.jsp</result>
@@ -61,13 +61,11 @@
 		</action>		
 		<action name="fileDownload" class="action.FileDownloadAction">
 			<result name="success">
-				
 				<param name="contentType">application/octet-stream</param>
 				<param name="contentDisposition">attachment;filename="${fileName}"</param>
 				<param name="path">D:/downLoad</param>
 				<param name="bufferSize">4096</param>
 				<param name="location">/success.jsp</param>
-				<param name="path">D:/downLoad</param>
 			</result>			
 		</action>
 	</package>

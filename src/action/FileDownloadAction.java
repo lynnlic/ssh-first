@@ -10,6 +10,9 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.struts2.ServletActionContext;
 
 import model.Student;
@@ -43,17 +46,19 @@ public class FileDownloadAction extends ActionSupport{
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
-	public String execute() throws Exception {
+
+	public String execute() throws Exception {		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		List<Student> students = (List<Student>) session.getAttribute("downLoadStu");
+		
 		System.out.println(fileName+"----");//struts自动调用set方法
-		StudentService studentService = new StudentService();		
-		List<Student> students = studentService.creatStudent();	
-		path = ServletActionContext.getServletContext().getRealPath(path);
+//		path = ServletActionContext.getServletContext().getRealPath("path");
+		path = "D:\\downLoad";
 		File file = new File(path, fileName + ".txt");
 		if(!file.exists()) {
 			file.createNewFile();
 		}
-		
 		OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
 		BufferedWriter writer=new BufferedWriter(output);
 		writer.write("学号\t姓名\t年龄\n");

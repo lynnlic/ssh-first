@@ -14,7 +14,7 @@ function getCondition() {
 	}
 }
 
-function setFileName() {
+function setFileName(students) {
 	var fileName;
 	fileName = prompt("请输入下载后文件的名字");
 	while(fileName == null || fileName == ""){

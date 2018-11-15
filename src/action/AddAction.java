@@ -19,13 +19,15 @@ public class AddAction extends ActionSupport {
 	
 	@Override
 	public void validate() {
-		if(student.getOwnClass().getClassId() == null || "".equals(student.getOwnClass().getClassId())) {
+		if(student.getOwnClass().getClassCode() == null || "".equals(student.getOwnClass().getClassCode())) {
 			super.addFieldError("classId", "班级必须填写！");
 		}
 		if(student.getStuId() == null || "".equals(student.getStuId())) {
 			super.addFieldError("stuId", "学号必须填写!");
-		} else {
+		} 
+		else {
 			if(!StrToNum.isOk(student.getStuId())) {
+				System.out.println(student.getStuId());
 				super.addFieldError("stuId", "学号只能包含数字！");
 			}
 		}

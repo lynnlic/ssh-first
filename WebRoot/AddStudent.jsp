@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<center>
   		<form action="addStudent.action" method="post" name="addForm">
-  			班级<input type="text" name="student.ownClass.classId" <%-- value='<%=student != null? student.get(0).getStuId() : "" %>' --%> /><br>
+  			班级<input type="text" name="student.ownClass.classCode" /><br>
   			<s:fielderror fieldName="classId"/>
   			学号<input type="text" name="student.stuId"/><br>
   			<s:fielderror fieldName="stuId"/>

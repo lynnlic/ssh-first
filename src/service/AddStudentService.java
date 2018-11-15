@@ -16,8 +16,8 @@ public class AddStudentService {
 	public void addStudent(Student student) {
 		Session session = HibernateUtils.getSession();
 		Transaction t = session.beginTransaction();
-		String sql = "insert into student(stuID, stuName, stuAge, classId) "
-				+ "values('"+student.getStuId()+"','"+student.getStuName()+"','"+student.getStuAge()+"','"+student.getOwnClass().getClassId()+"')";
+		String sql = "insert into student(stuID, stuName, stuAge, classCode) "
+				+ "values('"+student.getStuId()+"','"+student.getStuName()+"','"+student.getStuAge()+"','"+student.getOwnClass().getClassCode()+"')";
 		Query q = session.createSQLQuery(sql);
 		int result = q.executeUpdate();
 		if(result > 0) {

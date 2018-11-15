@@ -1,11 +1,12 @@
-<%@ page language="java" import="java.util.*" import="model.Student" pageEncoding="UTF-8"%>
+
+<%@ page language="java" import="java.util.*" import="model.Student" import="net.sf.json.JSONObject" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
 List<Student> students = (List<Student>) request.getAttribute("students");
-//Class classes =(Class) request.getAttribute("classes");
+session.setAttribute("downLoadStu", students);
  %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
