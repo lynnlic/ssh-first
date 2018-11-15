@@ -2,6 +2,7 @@ package action;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.ServletActionContext;
 
 import model.Student;
+import service.FileUploadService;
 import service.StudentService;
+import utils.ListToStr;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,6 +28,8 @@ import com.opensymphony.xwork2.util.ValueStack;
 public class FileDownloadAction extends ActionSupport{
 	private String fileName;
 	private String path;
+	private String contentType;
+	List<Student> students;
 
 	public String getPath() {
 		return path;
@@ -43,38 +48,32 @@ public class FileDownloadAction extends ActionSupport{
 		return fileName;
 	}
 
-	public void setFileName(String fileName) {
+	public void setFileName(String fileName) throws UnsupportedEncodingException {
+		fileName = new String(fileName.getBytes("iso8895-1"), "utf-8");
 		this.fileName = fileName;
+	}
+	
+	public String getContentType() {
+		return ServletActionContext.getServletContext().getMimeType(fileName);
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	public String execute() throws Exception {		
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpSession session = request.getSession();
-		List<Student> students = (List<Student>) session.getAttribute("downLoadStu");
-		
-		System.out.println(fileName+"----");//struts自动调用set方法
-//		path = ServletActionContext.getServletContext().getRealPath("path");
-		path = "D:\\downLoad";
-		File file = new File(path, fileName + ".txt");
-		if(!file.exists()) {
-			file.createNewFile();
-		}
-		OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file),"UTF-8");
-		BufferedWriter writer=new BufferedWriter(output);
-		writer.write("学号\t姓名\t年龄\n");
-		for(int i = 0; i < students.size(); i++) {
-			Student temp = students.get(i);
-			writer.write(temp.getStuId() + "\t" + temp.getStuName() + "\t" + temp.getStuAge() + "\n");
-		}
-		writer.close();		
 		return SUCCESS;
 	}
 	
-//	public InputStream getDownloadFile() throws Exception{
-//		File file = new File(path, fileName);
-//		BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-//		return inputStream;
-//	}
-	
-	
+	public InputStream getDownloadFile() throws Exception{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		students = (List<Student>) session.getAttribute("downLoadStu");
+		ActionContext.getContext();
+		String str = ListToStr.listToStr(students);
+		InputStream inputStream=new ByteArrayInputStream(str.getBytes("UTF-8"));
+		System.out.println(inputStream);
+		return inputStream;
+	}
+
 }

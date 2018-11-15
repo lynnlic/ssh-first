@@ -43,7 +43,7 @@ session.setAttribute("downLoadStu", students);
     		</form>
     			<a href="javascript:window.location='AddStudent.jsp'">新增</a>
     			<a href="javascript:window.location='fileUpload.jsp'">文件上传</a>
-    			<a href="javascript:void(0)" onclick="setFileName()" >文件下载</a>
+    			<a href="javascript:window.location='/first/fileDownload.action'" >文件下载</a>
     		    		
     	</div>
     	<div>

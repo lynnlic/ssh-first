@@ -44,6 +44,7 @@
 			</result>
 			<result name="input">/editStudent.jsp</result>
 		</action>
+		<!-- 文件上传 -->
 		<action name="fileUpload" class="action.FileUploadAction">
 			<result name="success" type="redirect">
 				<param name="location">/getStuByCondition.action</param>
@@ -58,15 +59,17 @@
 				<!-- 限制上传文件的类型 -->
 				<param name="fileUpload.allowTypes">text/plain,application/msword,image/jpeg</param>
 			</interceptor-ref>
-		</action>		
+		</action>
+		<!-- 文件下载 -->		
 		<action name="fileDownload" class="action.FileDownloadAction">
-			<result name="success">
-				<param name="contentType">application/octet-stream</param>
-				<param name="contentDisposition">attachment;filename="${fileName}"</param>
-				<param name="path">D:/downLoad</param>
-				<param name="bufferSize">4096</param>
-				<param name="location">/success.jsp</param>
-			</result>			
+			<result name="success" type="stream">
+				<!-- 文件类型 -->
+				<param name="contentType">${contentType}</param>
+				<!-- 指定文件名 -->
+				<param name="contentDisposition">attchment;file=${fileName}</param>
+				<!-- 输入流 -->
+				<param name="inputName">downloadFile</param>
+			</result>	
 		</action>
 	</package>
 </struts>    

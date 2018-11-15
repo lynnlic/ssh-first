@@ -16,6 +16,14 @@ import utils.HibernateUtils;
 import utils.StrToNum;
 
 public class StudentService {
+	private List<Student> students = new ArrayList<Student>();
+	
+	
+	
+	public List<Student> getStudents() {
+		return students;
+	}
+
 	//默认初始数据
 	public StudentService() {
 
@@ -110,53 +118,14 @@ public class StudentService {
 
 	public List<Student> getStuByAllCondition(String classCode, String type, String condition, String value) {
 		Session session = HibernateUtils.getSession();
-//		Transaction t = session.beginTransaction();
-//		List<Student> result = new ArrayList<Student>();
-//		Student gouzi = new Student();
-//		String hql = "select s.stuId, s.stuName, s.stuAge, s.ownClass.classCode from Student s";
-//		
-//		
-//		System.out.println(classCode +"====1");
-//		q.setParameter("classCode", classCode);
-//		q.setParameter(0, classCode);
-//		if(type.equals("age")) {
-//			q.setParameter(1, Integer.parseInt(value));
-//		} else {
-//			q.setParameter(1, "'" + value + "'");
-//		}
-//		result = q.list();		
-//		System.out.println("======2" + result.size());
-//		for(int i = 0; i < result.size();i++) {
-//			System.out.println("======" + result.get(i).getStuName());
-//		}
-//		String hql = " from Student as s where classCode= "+  classCode + " " + find(type, condition, value);
-//		String hql = "from Student where stuName=:name";
-//		Query q = session.createQuery(hql);
-//		q.setParameter("classCode", classCode);
-//		q.setParameter("name", value);
-//		if(type.equals("age")) {
-//			q.setParameter(1, Integer.parseInt(value));
-//		} else {
-//			q.setParameter(1, "'" + value + "'");
-//		}
 		String hql = "from Student as s where s.ownClass.classCode = " + classCode + " " + find(type, condition, value);
 		System.out.println("hql:"+hql);
 		Query q = session.createQuery(hql);
-		
-//		SQLQuery query = session.createSQLQuery(hql);
-//		query.addEntity(Student.class);
 		List<Student> result = q.list();
-//		t.commit();
 		session.close();
 		return result;
 	}
-//	
-//	public static void main(String[] args){
-//		Session session=HibernateUtils.getSession();
-//		Query query=session.createQuery("from Student as s where s.ownClass.classCode = '116030803' and s.stuName = '王五'");
-//		List<Student> students=query.list();
-//		System.out.println(students.size());
-//	}
+
 	
 	//删除学生
 	public void deleteStu(String stuId) {
@@ -191,11 +160,6 @@ public class StudentService {
 			Query q = session.createSQLQuery(sql);
 			q.executeUpdate();
 		}
-//		
-//		int result = q.executeUpdate();
-//		if(result > 0) {
-//			System.out.println("新增成功");
-//		}
 		t.commit();
 		session.close();
 	}
