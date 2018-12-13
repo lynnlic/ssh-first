@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import model.Class;
+import model.myClass;
 import model.Student;
 
 import org.hibernate.Query;
@@ -89,7 +89,7 @@ public class StudentService {
 	 * @return
 	 */
 	public String find(String type, String condition, String value) {
-		String s = "and ";
+		String s = "";
 		if(type.equals("name")) {
 			s += "s.stuName " + findByName(condition, value);
 		} else if(type.equals("age")) {
@@ -118,7 +118,19 @@ public class StudentService {
 
 	public List<Student> getStuByAllCondition(String classCode, String type, String condition, String value) {
 		Session session = HibernateUtils.getSession();
-		String hql = "from Student as s where s.ownClass.classCode = " + classCode + " " + find(type, condition, value);
+		String hql = "from Student as s where s.ownClass.classCode =:classCode and " + find(type, condition, value);
+		System.out.println("hql:"+hql);
+		Query q = session.createQuery(hql);
+		q.setParameter("classCode", classCode);
+		List<Student> result = q.list();
+		session.close();
+		return result;
+	}
+	
+	//通过其他条件搜索
+	public List<Student> getStuByCondition(String type, String condition, String value) {
+		Session session = HibernateUtils.getSession();
+		String hql = "from Student as s where " + find(type, condition, value);
 		System.out.println("hql:"+hql);
 		Query q = session.createQuery(hql);
 		List<Student> result = q.list();
@@ -161,6 +173,15 @@ public class StudentService {
 			q.executeUpdate();
 		}
 		t.commit();
+		session.close();
+	}
+	
+	public static void main(String[] args) {
+		Session session = HibernateUtils.getSession();
+		String hql = "from Student as s where s.ownClass.classCode ='116030804' and s.stuName='陈婷'";
+		Query q = session.createQuery(hql);
+		List<Student> result = q.list();
+		System.out.println(result.size());
 		session.close();
 	}
 }

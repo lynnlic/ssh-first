@@ -1,9 +1,11 @@
-<%@ page language="java" import="java.util.*" import="model.Class" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" import="model.myClass" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
+	String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<% List<Class> classes = (List<Class>)request.getAttribute("classes");%>
+<%
+	List<myClass> classes = (List<myClass>)request.getAttribute("classes");
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -35,13 +37,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</thead>
     			<tbody>
     				<%
-						for (Class c : classes) {
-						String id = c.getClassCode();
-					%>
+    					for (myClass c : classes) {
+    								String id = c.getClassCode();
+    				%>
 					<tr>
 						<td><%=c.getClassCode() %></td>
 						<td><%=c.getClassName()+"("+c.getNumber()+"人)"%></td>
-						<td><a>编辑</a>&nbsp;&nbsp;<a href="./getStuByCondition.action?classCode=<%=id %>">查看</a>&nbsp;&nbsp;<a>删除</a></td>
+						<td><a>编辑</a>&nbsp;&nbsp;<a href="./getStuByCondition.action?classId=<%=id %>">查看</a>&nbsp;&nbsp;<a>删除</a></td>
 					</tr>
 					<%
 						}

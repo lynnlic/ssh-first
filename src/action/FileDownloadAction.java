@@ -72,7 +72,6 @@ public class FileDownloadAction extends ActionSupport{
 		ActionContext.getContext();
 		String str = ListToStr.listToStr(students);
 		InputStream inputStream=new ByteArrayInputStream(str.getBytes("UTF-8"));
-		System.out.println(inputStream);
 		return inputStream;
 	}
 

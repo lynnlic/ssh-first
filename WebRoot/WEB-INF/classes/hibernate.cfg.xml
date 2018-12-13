@@ -15,7 +15,7 @@
 		<property name="connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property>
 		<!-- 连接数据库的uri -->
 		<property name="hibernate.connection.url">
-			jdbc:p6spy:mysql://localhost:3306/student
+			jdbc:p6spy:mysql://localhost:3306/student?characterEncoding=UTF-8
 		</property>
 		<!-- 数据库用户名 -->
 		<property name="hibernate.connection.username">root</property>
@@ -28,6 +28,6 @@
 		<property name="formate_sql">true</property>
 		<!-- 用来关联hbm配置文件 -->
 		<mapping resource="model/Student.hbm.xml" />
-		<mapping resource="model/Class.hbm.xml" />
+		<mapping resource="model/MyClass.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

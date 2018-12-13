@@ -77,8 +77,7 @@ public class StudentAction extends ActionSupport{
 		if (("".equals(classId) || classId == null) && type == null) {
 			students = service.creatStudent();
 		} else if (("".equals(classId) || classId == null) && type != null) {// 班级未选，搜索类型已选
-			students = service.getStuByAllCondition(classId, type, condition,
-					value);
+			students = service.getStuByCondition(type, condition, value);
 		} else if (!"".equals(classId) && (type == null || "".equals(type))) {
 			students = service.getStudentsByClass(classId);
 		} else if (!"".equals(classId) && type != null) {

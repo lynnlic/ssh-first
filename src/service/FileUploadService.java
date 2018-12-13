@@ -37,7 +37,7 @@ public class FileUploadService {
 		
 		for(int i = 0; i < info.length; i++) {
 			Student student = new Student();
-			model.Class tempClass = new model.Class();
+			model.myClass tempClass = new model.myClass();
 			student.setStuId(info[i][0]);
 			student.setStuName(info[i][1]);
 			student.setStuAge(Integer.parseInt(info[i][2]));

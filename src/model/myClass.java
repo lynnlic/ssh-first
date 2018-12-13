@@ -7,7 +7,7 @@ import java.util.Set;
  * Class entity. @author MyEclipse Persistence Tools
  */
 
-public class Class implements java.io.Serializable {
+public class myClass implements java.io.Serializable {
 
 	// Fields
 
@@ -19,11 +19,11 @@ public class Class implements java.io.Serializable {
 	// Constructors
 
 	/** default constructor */
-	public Class() {
+	public myClass() {
 	}
 
 	/** full constructor */
-	public Class(String className, Integer number) {
+	public myClass(String className, Integer number) {
 		this.className = className;
 		this.number = number;
 	}
