@@ -1,10 +1,10 @@
-<%@ page language="java" import="java.util.*" import="model.myClass" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" import="model.MyClass" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	List<myClass> classes = (List<myClass>)request.getAttribute("classes");
+	List<MyClass> classes = (List<MyClass>)request.getAttribute("classes");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -37,8 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			</thead>
     			<tbody>
     				<%
-    					for (myClass c : classes) {
-    								String id = c.getClassCode();
+    					for (MyClass c : classes) {
+    				    								String id = c.getClassCode();
     				%>
 					<tr>
 						<td><%=c.getClassCode() %></td>

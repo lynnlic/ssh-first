@@ -18,7 +18,7 @@ import org.apache.struts2.ServletActionContext;
 
 import model.Student;
 import service.FileUploadService;
-import service.StudentService;
+import service.StudentServiceImpl;
 import utils.ListToStr;
 
 import com.opensymphony.xwork2.ActionContext;

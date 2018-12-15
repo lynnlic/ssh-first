@@ -16,6 +16,6 @@
         <property name="stuAge" type="java.lang.Integer">
             <column name="stuAge" />
         </property>
-        <many-to-one name="ownClass" class="model.myClass" column="classCode"  lazy="false"/>
+        <many-to-one name="ownClass" class="model.MyClass" column="classCode"  lazy="false"/>
     </class>
 </hibernate-mapping>

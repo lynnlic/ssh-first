@@ -32,12 +32,12 @@ public class FileUploadService {
 	
 	//Ð´ÈëÊý¾Ý
 	public void addStudent() throws Exception {
-		StudentService studentService = new StudentService();		
+		StudentServiceImpl studentService = new StudentServiceImpl();		
 		List<Student> newStudent = new ArrayList<Student>();
 		
 		for(int i = 0; i < info.length; i++) {
 			Student student = new Student();
-			model.myClass tempClass = new model.myClass();
+			model.MyClass tempClass = new model.MyClass();
 			student.setStuId(info[i][0]);
 			student.setStuName(info[i][1]);
 			student.setStuAge(Integer.parseInt(info[i][2]));
@@ -45,6 +45,6 @@ public class FileUploadService {
 			student.setOwnClass(tempClass);
 			newStudent.add(student);
 		}
-		studentService.setStudents(newStudent);
+		studentService.setNewStudent(newStudent);
 	}
 }

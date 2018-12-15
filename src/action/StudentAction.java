@@ -3,19 +3,37 @@ package action;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import model.Student;
 import service.StudentService;
+import service.StudentServiceImpl;
 
+@Scope("prototype")
+@Controller("studentAction")
 public class StudentAction extends ActionSupport{
 	String type, condition, value, classId;
 	String userName,password;
 	List<Student> students;
-	static StudentService service;
-	static {
-		service = new StudentService();
-	}
+	
+//	@Autowired
+	@Resource(name="studentServiceImpl")
+	private StudentService studentServiceImpl;
+	
+//	public void setStudentService(StudentService studentService) {
+//		this.studentService = studentService;
+//	}
+	
+//	static StudentServiceImpl service;
+//	static {
+//		service = new StudentServiceImpl();
+//	}
 	
 	public List<Student> getStudents() {
 		return students;
@@ -75,13 +93,13 @@ public class StudentAction extends ActionSupport{
 
 	public String execute() {	
 		if (("".equals(classId) || classId == null) && type == null) {
-			students = service.creatStudent();
+			students = studentServiceImpl.creatStudent();
 		} else if (("".equals(classId) || classId == null) && type != null) {// 班级未选，搜索类型已选
-			students = service.getStuByCondition(type, condition, value);
+			students = studentServiceImpl.getStuByCondition(type, condition, value);
 		} else if (!"".equals(classId) && (type == null || "".equals(type))) {
-			students = service.getStudentsByClass(classId);
+			students = studentServiceImpl.getStudentsByClass(classId);
 		} else if (!"".equals(classId) && type != null) {
-			students = service.getStuByAllCondition(classId, type, condition,
+			students = studentServiceImpl.getStuByAllCondition(classId, type, condition,
 					value);
 		}
 

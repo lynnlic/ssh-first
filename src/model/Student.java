@@ -10,7 +10,7 @@ public class Student implements java.io.Serializable {
 	private String stuId;
 	private String stuName;
 	private Integer stuAge;
-	private myClass ownClass;
+	private MyClass ownClass;
 	// Constructors
 
 	/** default constructor */
@@ -49,15 +49,15 @@ public class Student implements java.io.Serializable {
 		this.stuAge = stuAge;
 	}
 
-	public myClass getOwnClass() {
+	public MyClass getOwnClass() {
 		return ownClass;
 	}
 
-	public void setOwnClass(myClass ownClass) {
+	public void setOwnClass(MyClass ownClass) {
 		this.ownClass = ownClass;
 	}
 
-	public Student(String stuId, String stuName, Integer stuAge, myClass ownClass) {
+	public Student(String stuId, String stuName, Integer stuAge, MyClass ownClass) {
 		super();
 		this.stuId = stuId;
 		this.stuName = stuName;
@@ -65,7 +65,7 @@ public class Student implements java.io.Serializable {
 		this.ownClass = ownClass;
 	}
 
-	public Student(String stuName, myClass ownClass) {
+	public Student(String stuName, MyClass ownClass) {
 		super();
 		this.stuName = stuName;
 		this.ownClass = ownClass;

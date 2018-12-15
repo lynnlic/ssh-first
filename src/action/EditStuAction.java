@@ -1,6 +1,6 @@
 package action;
 
-import service.StudentService;
+import service.StudentServiceImpl;
 import model.Student;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,7 +17,7 @@ public class EditStuAction extends ActionSupport{
 	}
 	
 	public String execute() {
-		StudentService service = new StudentService();
+		StudentServiceImpl service = new StudentServiceImpl();
 		service.editStu(student);
 		return SUCCESS;
 	}

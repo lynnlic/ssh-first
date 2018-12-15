@@ -9,13 +9,13 @@
 			org.hibernate.dialect.MySQLDialect
 		</property>
 		<!-- 数据库驱动 -->
-		<!-- <property name="hibernate.connection.driver_class">
+		<property name="hibernate.connection.driver_class">
 			com.mysql.jdbc.Driver
-		</property> -->
-		<property name="connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property>
+		</property>
+		<!-- <property name="connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property> -->
 		<!-- 连接数据库的uri -->
 		<property name="hibernate.connection.url">
-			jdbc:p6spy:mysql://localhost:3306/student?characterEncoding=UTF-8
+			jdbc:mysql://localhost:3306/student?characterEncoding=UTF-8
 		</property>
 		<!-- 数据库用户名 -->
 		<property name="hibernate.connection.username">root</property>

@@ -1,6 +1,6 @@
 package action;
 
-import service.StudentService;
+import service.StudentServiceImpl;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -16,7 +16,7 @@ public class DeleteStudentAction extends ActionSupport{
 	}
 	
 	public String execute() {
-		StudentService service = new StudentService();
+		StudentServiceImpl service = new StudentServiceImpl();
 		service.deleteStu(stuId);
 		return SUCCESS;
 	}

@@ -10,7 +10,6 @@ import com.opensymphony.xwork2.ModelDriven;
 public class LoginAction extends ActionSupport implements ModelDriven<User>{
 	User user = new User();
 	
-	
 	@Override
 	public String execute(){
 		LoginService service = new LoginService();
@@ -23,7 +22,6 @@ public class LoginAction extends ActionSupport implements ModelDriven<User>{
 			actionContext.put("message", "用户名或密码不正确");
 			return INPUT;
 		}
-		
 	}
 
 	public User getModel() {

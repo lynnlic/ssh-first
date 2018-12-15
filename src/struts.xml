@@ -3,6 +3,9 @@
 
 <struts>
 	<constant name="struts.multipart.maxSize" value="10485760" />
+	<!-- 将action交给spring管理 -->
+ <!--    <constant name="struts.objectFactory" value="spring"/> -->
+	
 	<package name="student" namespace="/" extends="struts-default">
 		<!-- 申明拦截器 -->
 		<interceptors>
@@ -14,11 +17,11 @@
 		</interceptors>
 		<action name="login" class="action.LoginAction">
 			<result name="success" type="redirect">
-				<param name="location">/getClass.action</param>
+				<param name="location">/getClass.action</param> 
 			</result>
 			<result name="input">/login.jsp</result>
 		</action>
-		<action name="getStuByCondition" class="action.StudentAction">
+		<action name="getStuByCondition" class="action.StudentAction" >
 			<result name="success">/index.jsp</result>
 			<result name="login">/login.jsp</result>
 			<interceptor-ref name="myStack" />
